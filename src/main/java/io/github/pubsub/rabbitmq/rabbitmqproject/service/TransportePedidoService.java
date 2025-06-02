@@ -14,7 +14,6 @@ public class TransportePedidoService {
     @Autowired
     private StreamBridge streamBridge;
 
-    // Consome da 'fila-transporte-pedidos' através do binding 'receberPedidoParaTransporte-in-0'
     @Bean
     public Consumer<Pedido> receberPedidoParaTransporte() {
         return pedido -> {
@@ -26,8 +25,6 @@ public class TransportePedidoService {
                 pedido.setStatus("ENTREGUE");
                 System.out.println("Pedido ID: " + pedido.getId() + " ENTREGUE.");
 
-                // Publica evento "pedido-entregue"
-                // Binding: 'publicarEventoPedidoEntregue-out-0' -> exchange 'eventos-pedidos' com routing key 'pedido-entregue'
                 streamBridge.send("publicarEventoPedidoEntregue-out-0", pedido);
                 System.out.println("Evento PEDIDO_ENTREGUE publicado para Pedido ID: " + pedido.getId());
 

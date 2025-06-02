@@ -10,8 +10,6 @@ import java.util.function.Consumer;
 @Service
 public class NotificacaoService {
 
-    // Consome do exchange 'eventos-pedidos' através do binding 'ouvirEventosNotificacao-in-0'
-    // O binding key 'pedido-processado,pedido-entregue' garante que ele receba ambos os eventos.
     @Bean
     public Consumer<Message<Pedido>> ouvirEventosNotificacao() {
         return message -> {
